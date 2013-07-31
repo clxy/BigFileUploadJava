@@ -9,10 +9,10 @@ public class UploadFileServiceTest {
 
 	public static void main(String[] args) {
 
-		UploadFileService service = new UploadFileService("D:\\test.mp3");
+		UploadFileService service = new UploadFileService("D:\\test.jpg");
 		try {
-			// service.retry(1, 2);
-			service.upload();
+			service.retry(1, 2);
+			// service.upload();
 		} catch (Exception e) {
 			service.retry(1, 2);
 			e.printStackTrace();
