@@ -36,10 +36,10 @@ import cn.clxy.upload.UploadFileService.Part;
  * Use http client to upload.
  * @author clxy
  */
-public class HttpClientUploader implements Uploader {
+public class ApacheHCUploader implements Uploader {
 
 	private static HttpClient client = createClient();
-	private static final Log log = LogFactory.getLog(HttpClientUploader.class);
+	private static final Log log = LogFactory.getLog(ApacheHCUploader.class);
 
 	@Override
 	public void upload(Part part) {

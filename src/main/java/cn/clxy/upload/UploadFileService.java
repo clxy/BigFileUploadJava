@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
 public class UploadFileService {
 
 	private File file;
-	private Uploader uploader = new HttpClientUploader();
+	private Uploader uploader = new ApacheHCUploader();
 	private ExecutorService executor = Executors.newFixedThreadPool(Config.MAX_UPLOAD);
 
 	private static final Log log = LogFactory.getLog(UploadFileService.class);

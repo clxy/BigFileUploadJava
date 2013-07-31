@@ -7,7 +7,7 @@ package cn.clxy.upload;
 
 public class Config {
 
-	public static final String URL = "http://192.168.1.101:8080/ssm/common/upload";
+	public static final String URL = "http://192.168.1.100:8080/ssm/common/upload";
 
 	// Keys used by server.
 	public static final String KEY_FILE = "file";

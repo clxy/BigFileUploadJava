@@ -11,8 +11,8 @@ public class UploadFileServiceTest {
 
 		UploadFileService service = new UploadFileService("D:\\test.mp3");
 		try {
-			service.retry(1, 2);
-			// service.upload();
+			// service.retry(1, 2);
+			service.upload();
 		} catch (Exception e) {
 			service.retry(1, 2);
 			e.printStackTrace();
