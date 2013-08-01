@@ -51,23 +51,22 @@ Here is a java example.
 	...
 	try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 
-		FileChannel dc = dest.getChannel();// the final big file。
-		for (long i = start; i < count; i++) {
-			File partFile = new File(destFileName + "." + i);// every small parts。
-			if (!partFile.exists() && i != 0) {
-				return OK;
+		FileChannel dc = dest.getChannel();// the final big file.
+		for (long i = 0; i < count; i++) {
+			File partFile = new File(destFileName + "." + i);// every small parts.
+			if (!partFile.exists()) {
+				break;
 			}
 			try (FileInputStream part = new FileInputStream(partFile)) {
 				FileChannel pc = part.getChannel();
-				pc.transferTo(0, pc.size(), dc);// combine。
+				pc.transferTo(0, pc.size(), dc);// combine.
 			}
 			partFile.delete();
 		}
+		statusCode = OK;// set ok at last.
 	} catch (Exception e) {
 		log.error("combine failed.", e);
-		return BAD;
 	}
-	return OK;
 
 * * ** * ** * ** * ** * ** * ** * ** * ** * *
 
@@ -120,10 +119,10 @@ Here is a java example.
 	try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 
 		FileChannel dc = dest.getChannel();// 最终的大文件。
-		for (long i = start; i < count; i++) {
+		for (long i = 0; i < count; i++) {
 			File partFile = new File(destFileName + "." + i);// 每个文件块。
-			if (!partFile.exists() && i != 0) {
-				return OK;
+			if (!partFile.exists()) {
+				break;
 			}
 			try (FileInputStream part = new FileInputStream(partFile)) {
 				FileChannel pc = part.getChannel();
@@ -131,8 +130,7 @@ Here is a java example.
 			}
 			partFile.delete();
 		}
+		statusCode = OK;// 最终设状态OK。
 	} catch (Exception e) {
 		log.error("combine failed.", e);
-		return BAD;
 	}
-	return OK;
