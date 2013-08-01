@@ -84,13 +84,15 @@ public class ReadTask implements Callable<String> {
 	}
 
 	/**
-	 * Create file name of part. bigfile.avi = [bigfile.avi, bigfile.avi.1, bigfile.avi.2 ...]
+	 * Create file name of part. <br>
+	 * bigfile.avi = [bigfile.avi<strong>.0</strong>, bigfile.avi.1, bigfile.avi.2 ...]
 	 * @param fileName
 	 * @param i
 	 * @return
 	 */
 	protected String createFileName(String fileName, int i) {
-		return fileName + (i == 0 ? "" : ("." + i));
+		return fileName + "." + i;//start by 0.
+		// return fileName + (i == 0 ? "" : ("." + i));
 	}
 
 	private Status getReadStatus(int i, List<Integer> indexes) {
