@@ -34,9 +34,10 @@ Basically, read a big file into small parts and upload. When all file parts uplo
 ### Usage
 
 #### Configuration
-Please refer to [cn.clxy.upload.Config](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java)
+Please refer to [cn.clxy.upload.Config](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java).
+
 Please note that the maximum memory usage might be:
-	PART_SIZE * (MAX_UPLOAD + MAX_READ - 1)
+```PART_SIZE * (MAX_UPLOAD + MAX_READ - 1)```
 
 #### Upload
 	UploadFileService service = new UploadFileService(yourFileName);
@@ -106,8 +107,9 @@ try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 
 #### 配置
 请参考 [cn.clxy.upload.Config](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java).
+
 请注意内存的最大使用量可能是：
-	PART_SIZE * (MAX_UPLOAD + MAX_READ - 1)
+```PART_SIZE * (MAX_UPLOAD + MAX_READ - 1)```
 
 #### 上传
 	UploadFileService service = new UploadFileService(yourFileName);
