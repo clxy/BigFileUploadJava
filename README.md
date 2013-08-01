@@ -34,7 +34,7 @@ Basically, read a big file into small parts and upload. When all file parts uplo
 ### Usage
 
 #### Configuration
-Please refer to [cn.clxy.upload.Config class](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java)
+Please refer to [cn.clxy.upload.Config](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java)
 
 #### Upload
 	UploadFileService service = new UploadFileService(yourFileName);
@@ -102,7 +102,7 @@ Here is a java example.
 ### 使用
 
 #### 配置
-请参考 [cn.clxy.upload.Config class](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java).
+请参考 [cn.clxy.upload.Config](https://github.com/clxy/BigFileUploadJava/blob/master/src/main/java/cn/clxy/upload/Config.java).
 
 #### 上传
 	UploadFileService service = new UploadFileService(yourFileName);
