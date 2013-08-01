@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
 import cn.clxy.upload.UploadFileService.Part;
 
 /**
- * Read big file into several parts.
+ * Read a big file into several parts.
  * @author clxy
  */
 public class ReadTask implements Callable<String> {
@@ -26,7 +26,7 @@ public class ReadTask implements Callable<String> {
 	private BlockingQueue<Part> parts;
 
 	/**
-	 * Limited part indexes. Only these parts will be read if specified.
+	 * Limited part indexes. Only these parts will be readed if specified.
 	 */
 	private List<Integer> indexes;
 
@@ -91,7 +91,7 @@ public class ReadTask implements Callable<String> {
 	 * @return
 	 */
 	protected String createFileName(String fileName, int i) {
-		return fileName + "." + i;//start by 0.
+		return fileName + "." + i;// start by 0.
 		// return fileName + (i == 0 ? "" : ("." + i));
 	}
 
