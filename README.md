@@ -67,7 +67,8 @@ try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 	statusCode = OK;// set ok at last.
 } catch (Exception e) {
 	log.error("combine failed.", e);
-}```
+}
+```
 
 * * ** * ** * ** * ** * ** * ** * ** * ** * *
 
@@ -135,4 +136,5 @@ try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 	statusCode = OK;// 最终设状态OK。
 } catch (Exception e) {
 	log.error("combine failed.", e);
-}```
+}
+```
