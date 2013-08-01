@@ -48,25 +48,26 @@ Please refer to [cn.clxy.upload.Config](https://github.com/clxy/BigFileUploadJav
 Because it is via HTTP, so it can be in any language, such as Java, PHP, Python, etc.
 Here is a java example.
 
-	...
-	try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
+```Java
+...
+try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 
-		FileChannel dc = dest.getChannel();// the final big file.
-		for (long i = 0; i < count; i++) {
-			File partFile = new File(destFileName + "." + i);// every small parts.
-			if (!partFile.exists()) {
-				break;
-			}
-			try (FileInputStream part = new FileInputStream(partFile)) {
-				FileChannel pc = part.getChannel();
-				pc.transferTo(0, pc.size(), dc);// combine.
-			}
-			partFile.delete();
+	FileChannel dc = dest.getChannel();// the final big file.
+	for (long i = 0; i < count; i++) {
+		File partFile = new File(destFileName + "." + i);// every small parts.
+		if (!partFile.exists()) {
+			break;
 		}
-		statusCode = OK;// set ok at last.
-	} catch (Exception e) {
-		log.error("combine failed.", e);
+		try (FileInputStream part = new FileInputStream(partFile)) {
+			FileChannel pc = part.getChannel();
+			pc.transferTo(0, pc.size(), dc);// combine.
+		}
+		partFile.delete();
 	}
+	statusCode = OK;// set ok at last.
+} catch (Exception e) {
+	log.error("combine failed.", e);
+}
 
 * * ** * ** * ** * ** * ** * ** * ** * ** * *
 
@@ -115,22 +116,23 @@ Here is a java example.
 由于是经由HTTP上传，所以可以是任何语言如Java，PHP，Python等。
 下面是合并文件的Java实例。
 
-	...
-	try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
+```Java
+...
+try (FileOutputStream dest = new FileOutputStream(destFile, true)) {
 
-		FileChannel dc = dest.getChannel();// 最终的大文件。
-		for (long i = 0; i < count; i++) {
-			File partFile = new File(destFileName + "." + i);// 每个文件块。
-			if (!partFile.exists()) {
-				break;
-			}
-			try (FileInputStream part = new FileInputStream(partFile)) {
-				FileChannel pc = part.getChannel();
-				pc.transferTo(0, pc.size(), dc);// 合并。
-			}
-			partFile.delete();
+	FileChannel dc = dest.getChannel();// 最终的大文件。
+	for (long i = 0; i < count; i++) {
+		File partFile = new File(destFileName + "." + i);// 每个文件块。
+		if (!partFile.exists()) {
+			break;
 		}
-		statusCode = OK;// 最终设状态OK。
-	} catch (Exception e) {
-		log.error("combine failed.", e);
+		try (FileInputStream part = new FileInputStream(partFile)) {
+			FileChannel pc = part.getChannel();
+			pc.transferTo(0, pc.size(), dc);// 合并。
+		}
+		partFile.delete();
 	}
+	statusCode = OK;// 最终设状态OK。
+} catch (Exception e) {
+	log.error("combine failed.", e);
+}
