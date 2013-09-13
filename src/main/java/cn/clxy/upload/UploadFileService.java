@@ -25,7 +25,7 @@ public class UploadFileService {
 
 	private File file;
 	private Uploader uploader = new ApacheHCUploader();
-	private ExecutorService executor = Executors.newFixedThreadPool(Config.MAX_UPLOAD);
+	private ExecutorService executor = Executors.newFixedThreadPool(Config.maxUpload);
 
 	private static final Log log = LogFactory.getLog(UploadFileService.class);
 
@@ -67,7 +67,7 @@ public class UploadFileService {
 
 		log.debug("Start! ===--------------------");
 
-		BlockingQueue<Part> parts = new ArrayBlockingQueue<Part>(Config.MAX_READ);
+		BlockingQueue<Part> parts = new ArrayBlockingQueue<Part>(Config.maxRead);
 		CompletionService<String> cs = new ExecutorCompletionService<String>(executor);
 
 		log.debug("Reading started.");
@@ -75,12 +75,12 @@ public class UploadFileService {
 
 		log.debug("Uploading started.");
 
-		for (int i = 0; i < Config.MAX_UPLOAD; i++) {
+		for (int i = 0; i < Config.maxUpload; i++) {
 			cs.submit(new UploadTask("upload." + i, uploader, parts));
 		}
 
 		// Wait all done. total count = maxUpload + 1.
-		for (int i = 0; i <= Config.MAX_UPLOAD; i++) {
+		for (int i = 0; i <= Config.maxUpload; i++) {
 			Future<String> future = null;
 			try {
 				future = cs.take();

@@ -41,7 +41,7 @@ public class ReadTask implements Callable<String> {
 
 		FileInputStream fis = null;
 		String fileName = file.getName();
-		int partSize = Config.PART_SIZE;
+		int partSize = Config.partSize;
 
 		try {
 			fis = new FileInputStream(file);

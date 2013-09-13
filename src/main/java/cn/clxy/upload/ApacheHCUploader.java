@@ -46,7 +46,7 @@ public class ApacheHCUploader implements Uploader {
 
 		String fileName = part.getFileName();
 		Map<String, ContentBody> params = new HashMap<String, ContentBody>();
-		params.put(Config.KEY_FILE, new ByteArrayBody(part.getContent(), fileName));
+		params.put(Config.keyFile, new ByteArrayBody(part.getContent(), fileName));
 		post(params);
 		log.debug(fileName + " uploaded.");
 	}
@@ -56,8 +56,8 @@ public class ApacheHCUploader implements Uploader {
 
 		Map<String, ContentBody> params = new HashMap<String, ContentBody>();
 		try {
-			params.put(Config.KEY_FILE_NAME, new StringBody(fileName));
-			params.put(Config.PART_COUNT, new StringBody(String.valueOf(partCount)));
+			params.put(Config.keyFileName, new StringBody(fileName));
+			params.put(Config.keyPartCount, new StringBody(String.valueOf(partCount)));
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
@@ -68,7 +68,7 @@ public class ApacheHCUploader implements Uploader {
 
 	private void post(Map<String, ContentBody> params) {
 
-		HttpPost post = new HttpPost(Config.URL);
+		HttpPost post = new HttpPost(Config.url);
 		MultipartEntity entity = new MultipartEntity();
 		for (Entry<String, ContentBody> e : params.entrySet()) {
 			entity.addPart(e.getKey(), e.getValue());
@@ -100,11 +100,11 @@ public class ApacheHCUploader implements Uploader {
 		schReg.register(new Scheme("https", 443, SSLSocketFactory.getSocketFactory()));
 
 		PoolingClientConnectionManager ccm = new PoolingClientConnectionManager(schReg);
-		ccm.setMaxTotal(Config.MAX_UPLOAD);
+		ccm.setMaxTotal(Config.maxUpload);
 
 		HttpParams params = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(params, 10 * 1000);
-		HttpConnectionParams.setSoTimeout(params, Config.PART_UPLOAD_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(params, Config.timeOut);
 
 		return new DefaultHttpClient(ccm, params);
 	}

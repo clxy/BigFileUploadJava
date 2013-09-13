@@ -22,7 +22,7 @@ public class NotifyTask implements Callable<String> {
 	public String call() throws Exception {
 
 		long length = file.length();
-		long partCount = (length / Config.PART_SIZE) + (length % Config.PART_SIZE == 0 ? 0 : 1);
+		long partCount = (length / Config.partSize) + (length % Config.partSize == 0 ? 0 : 1);
 		uploader.done(file.getName(), partCount);
 		return "notify";
 	}

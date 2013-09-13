@@ -5,20 +5,56 @@
  */
 package cn.clxy.upload;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class Config {
 
-	public static final String URL = "http://192.168.1.99:8080/ssm/common/upload";
+	public static String url = "http://192.168.1.99:8080/ssm/common/upload";
 
 	// Keys used by server.
-	public static final String KEY_FILE = "file";
-	public static final String KEY_FILE_NAME = "fileName";
-	public static final String PART_COUNT = "partCount";
+	public static String keyFile = "file";
+	public static String keyFileName = "fileName";
+	public static String keyPartCount = "partCount";
 
 	// Upload threads and timeout per thread. Should be adjusted by network condition.
-	public static final int MAX_UPLOAD = 5;
-	public static final int PART_UPLOAD_TIMEOUT = 120 * 1000;
+	public static int maxUpload = 5;
+	public static int timeOut = 120 * 1000;
 
 	// The size of part.
-	public static final int PART_SIZE = 100 * 1024;
-	public static final int MAX_READ = 5;
+	public static int partSize = 100 * 1024;
+	public static int maxRead = 5;
+
+	static {
+		// load properties
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		try {
+			InputStream is = cl.getResourceAsStream("bigFileUpload.properties");
+			if (is != null) {
+				Properties p = new Properties();
+				p.load(is);
+				url = p.getProperty("url");
+				keyFile = p.getProperty("keyFile");
+				keyFileName = p.getProperty("keyFileName");
+				keyPartCount = p.getProperty("keyPartCount");
+
+				String s = p.getProperty("maxUpload");
+				maxUpload = Integer.parseInt(s);
+				s = p.getProperty("timeOut");
+				timeOut = Integer.parseInt(s) * 1000;
+				s = p.getProperty("partSize");
+				partSize = Integer.parseInt(s) * 1024;
+				s = p.getProperty("maxRead");
+				maxRead = Integer.parseInt(s);
+
+			}
+		} catch (IOException e) {
+			// do nothing.
+		}
+
+	}
+
+	private Config() {
+	}
 }
