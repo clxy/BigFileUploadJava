@@ -8,23 +8,23 @@ package cn.clxy.upload;
 public class Part {
 
 	private byte[] content;
-	private String fileName;
+	private String name;
 	public static final Part NULL = new Part();
 
 	public Part() {
 		this(null, null);
 	}
 
-	public Part(String fileName, byte[] content) {
+	public Part(String name, byte[] content) {
 		this.content = content;
-		this.fileName = fileName;
+		this.name = name;
 	}
 
 	public byte[] getContent() {
 		return content;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getName() {
+		return name;
 	}
 }

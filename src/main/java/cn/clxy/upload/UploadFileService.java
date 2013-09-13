@@ -31,6 +31,7 @@ public class UploadFileService {
 	private BlockingQueue<Part> parts;
 	private List<Integer> indexes;
 
+	private Listener listener = new Listener.Default();
 	private Uploader uploader = new ApacheHCUploader();
 	private ExecutorService executor = Executors.newFixedThreadPool(Config.maxUpload);
 
@@ -72,15 +73,11 @@ public class UploadFileService {
 
 	private void doUpload() {
 
-		log.debug("Start! ===--------------------");
-
+		listener.onStart(indexes != null ? indexes.size() : getPartCount());
 		parts = new ArrayBlockingQueue<Part>(Config.maxRead);
 		CompletionService<String> cs = new ExecutorCompletionService<String>(executor);
 
-		log.debug("Reading started.");
 		cs.submit(readTask);
-
-		log.debug("Uploading started.");
 
 		for (int i = 0; i < Config.maxUpload; i++) {
 			cs.submit(new UploadTask("upload." + i));
@@ -100,22 +97,29 @@ public class UploadFileService {
 		// Notify sever all done.
 		Future<String> result = executor.submit(notifyTask);
 		checkFuture(result);
-
-		log.debug("End! ===--------------------");
+		listener.onSuccess();
 	}
 
-	private static String checkFuture(Future<String> future) {
+	private String checkFuture(Future<String> future) {
 
+		String result = null;
 		try {
-			String result = future.get();
-			log.debug(result + " is done.");
+			result = future.get();
 			return result;
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			return null;
 		} catch (ExecutionException e) {
+			listener.onFail(result);
+			log.error(e.getCause());
 			throw new RuntimeException(e.getCause());
 		}
+	}
+
+	protected int getPartCount() {
+		long length = file.length();
+		long count = (length / Config.partSize) + (length % Config.partSize == 0 ? 0 : 1);
+		return (int) count;
 	}
 
 	private Callable<String> readTask = new Callable<String>() {
@@ -151,7 +155,9 @@ public class UploadFileService {
 						if (bytesRead != partSize) {// trim
 							bytes = Arrays.copyOf(bytes, bytesRead);
 						}
-						parts.put(new Part(createFileName(fileName, i), bytes));
+						String partName = createFileName(fileName, i);
+						listener.onRead(partName);
+						parts.put(new Part(partName, bytes));
 					}
 				}
 			} finally {
@@ -207,13 +213,19 @@ public class UploadFileService {
 
 		@Override
 		public String call() throws Exception {
+
 			while (true) {
+
 				Part part = parts.take();
 				if (part == Part.NULL) {
 					parts.add(Part.NULL);// notify others to stop.
 					break;
 				}
+
+				String partName = part.getName();
+				listener.onUpload(partName);
 				uploader.upload(part);
+				listener.onPartDone(partName);
 			}
 			return name;
 		}
@@ -222,9 +234,7 @@ public class UploadFileService {
 	private Callable<String> notifyTask = new Callable<String>() {
 		@Override
 		public String call() throws Exception {
-			long length = file.length();
-			long partCount = (length / Config.partSize) + (length % Config.partSize == 0 ? 0 : 1);
-			uploader.done(file.getName(), partCount);
+			uploader.done(file.getName(), getPartCount());
 			return "notify";
 		}
 	};

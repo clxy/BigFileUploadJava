@@ -42,11 +42,11 @@ public class ApacheHCUploader implements Uploader {
 	@Override
 	public void upload(Part part) {
 
-		String fileName = part.getFileName();
+		String partName = part.getName();
 		Map<String, ContentBody> params = new HashMap<String, ContentBody>();
-		params.put(Config.keyFile, new ByteArrayBody(part.getContent(), fileName));
+		params.put(Config.keyFile, new ByteArrayBody(part.getContent(), partName));
 		post(params);
-		log.debug(fileName + " uploaded.");
+		log.debug(partName + " uploaded.");
 	}
 
 	@Override
