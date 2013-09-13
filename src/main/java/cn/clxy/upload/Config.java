@@ -5,7 +5,6 @@
  */
 package cn.clxy.upload;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -49,7 +48,7 @@ public class Config {
 				maxRead = Integer.parseInt(s);
 
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// do nothing.
 		}
 
