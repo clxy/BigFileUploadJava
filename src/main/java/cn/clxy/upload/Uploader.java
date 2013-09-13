@@ -5,8 +5,6 @@
  */
 package cn.clxy.upload;
 
-import cn.clxy.upload.UploadFileService.Part;
-
 public interface Uploader {
 
 	/**

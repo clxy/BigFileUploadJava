@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
-import cn.clxy.upload.UploadFileService.Part;
-
 /**
  * Read a big file into several parts.
  * @author clxy

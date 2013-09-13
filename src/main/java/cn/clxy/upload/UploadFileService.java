@@ -110,28 +110,4 @@ public class UploadFileService {
 			throw new RuntimeException(e.getCause());
 		}
 	}
-
-	public static class Part {
-
-		private byte[] content;
-		private String fileName;
-		public static final Part NULL = new Part();
-
-		public Part() {
-			this(null, null);
-		}
-
-		public Part(String fileName, byte[] content) {
-			this.content = content;
-			this.fileName = fileName;
-		}
-
-		public byte[] getContent() {
-			return content;
-		}
-
-		public String getFileName() {
-			return fileName;
-		}
-	}
 }

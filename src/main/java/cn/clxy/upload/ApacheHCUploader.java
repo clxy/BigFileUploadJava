@@ -30,8 +30,6 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
-import cn.clxy.upload.UploadFileService.Part;
-
 /**
  * Use http client to upload.
  * @author clxy

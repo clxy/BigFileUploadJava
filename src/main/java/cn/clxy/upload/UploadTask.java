@@ -8,8 +8,6 @@ package cn.clxy.upload;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
-import cn.clxy.upload.UploadFileService.Part;
-
 public class UploadTask implements Callable<String> {
 
 	private String name;
