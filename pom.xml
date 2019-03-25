@@ -7,7 +7,7 @@
 	<description>Upload big file by java. Using Apache HttpComponents. Can work on Android too.</description>
 
 	<properties>
-		<httpcomponents>4.2.5</httpcomponents>
+		<httpcomponents>4.3.6</httpcomponents>
 	</properties>
 	<dependencies>
 		<dependency>
